@@ -1,0 +1,57 @@
+@model List<ToDo>
+
+
+<a href="/logout" class="btn btn-md btn-dark"> Logout</a>
+<a href="/event/new" class="btn btn-md btn-danger "> New Activity</a>
+<div class="jumbotron">
+    <h1>Welcome @ViewBag.User.FirstName</h1> 
+</div>
+<div class="jumbotron" style="background-color:grey">
+    <table class="table table-dark"> 
+    <thead>
+        <tr>
+            <th>Activity</th>
+            <th>Date</th>
+            <th>Duration</th>
+            <th>Event Coordinator</th>
+            <th># of Participants</th>
+            <th>Rsvp</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            @if(item.ToDoDate > DateTime.Now)
+            {
+            <tr>
+                
+                <td><a href="/show/@item.ToDoId">@item.Title</a></td>
+                
+                
+                    <td>@item.ToDoDate</td>
+                
+                <td>@item.Duration @item.StringDuration</td>
+                <td>@item.ToDoCreator.FirstName</td>
+                <td>@item.Participants.Count</td>
+                
+                <td>
+                @if(item.ToDoCreator.UserId==ViewBag.User.UserId)
+                {
+                    <a href="/cancel/@item.ToDoId" class="btn btn-danger">Cancel</a>
+                }
+                else
+                {
+                    if(item.Participants.All(p=>p.UserId != ViewBag.User.UserId))
+                    {
+                        <a href="/going/@item.ToDoId/@ViewBag.User.UserId" class="btn btn-success">Join</a>
+                    }
+                
+                if(item.Participants.Any(o=>o.UserId==ViewBag.User.UserId))
+                {
+                    <a href="/leave/@item.ToDoId/@ViewBag.User.UserId" class="btn btn-warning">Leave</a>
+                }
+                }
+                </td>
+            </tr>
+            }
+        }

@@ -1,0 +1,52 @@
+@model ToDo
+
+<div class="jumbotron">
+    <a href="/Logout" class="btn btn-sm btn-danger mb-5">Logout</a>
+    <a href="/success" class="btn btn-sm btn-danger mb-5">Home </a>
+    <h1>Create an Activity</h1>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <h1>Fill out the fields below</h1>
+            <form asp-action="Create" class="form-group">
+                <p>
+                    <p><span asp-validation-for="Title" class="text-danger"></span></p>
+                    <label asp-for="Title"></label>
+                    <input asp-for="Title" class="form-control">
+                </p>
+                <p>
+                    <p><span asp-validation-for="Description" class="text-danger"></span></p>
+                    <label asp-for="Description"></label>
+                    <textarea asp-for="Description" class="form-control" id="" cols="30" rows="10"></textarea>
+                </p>
+                <p>
+                    <p><span asp-validation-for="ToDoDate" class="text-danger"></span></p>
+                    <label asp-for="ToDoDate"></label>
+                    <input asp-for="ToDoDate" class="form-control">
+                </p>
+                <p>
+                    <p><span asp-validation-for="Duration" class="text-danger"></span></p>
+                    <label asp-for="Duration"></label>
+                    <input asp-for="Duration" class="form-control">
+                </p>
+                <p>
+                    <p><span style="color:red;" asp-validation-for="StringDuration"></span></p>
+                    <select asp-for="StringDuration">
+                        <option value=""></option>
+                        <option value="Hours">Hours</option>
+                        <option value="Minutes">Minutes</option>
+                        <option value="Days">Days</option>
+                    </select>
+                </p>
+                <p>
+                    <input type="submit" value="Add Event" class="btn btn-warning btn-md">
+                </p>
+            </form>
+        </div>
+        <div class="col-md-5"></div>
+
+
+    </div>
+</div>

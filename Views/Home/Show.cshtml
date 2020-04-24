@@ -1,0 +1,39 @@
+@model ToDo
+
+
+<div class="jumbotron">
+    <h2>@Model.Title</h2>
+    <hr>
+    <h2>Event Coordinator: @Model.ToDoCreator.FirstName</h2>
+    <a href="/Logout" class="btn btn-lg btn-dark mb-5">Logout</a>
+    <a href="/success" class="btn btn-lg btn-dark mb-5">Dashboard </a>
+    @if(Model.ToDoCreator.UserId==ViewBag.User.UserId)
+        {
+            <a href="/cancel/@Model.ToDoId" class="btn btn-lg btn-danger mb-5">Cancel</a>
+        }
+    else
+    {
+        if(Model.Participants.All(p=>p.UserId != ViewBag.User.UserId))
+        {
+            <a href="/going/@Model.ToDoId/@ViewBag.User.UserId" class="btn btn-lg btn-success mb-5">Join</a>
+        }
+    if(Model.Participants.Any(p=>p.UserId==ViewBag.User.UserId))
+    {
+        <a href="/leave/@Model.ToDoId/@ViewBag.User.UserId" class="btn btn-lg btn-warning mb-5">Leave</a>
+    }
+    }
+    
+    
+    <h4>Description:</h4>
+    <p>@Model.Description</p>
+</div>
+
+<div class="jumbotron">
+    <h4>Participants:</h4>
+    <ol>
+        @foreach(var guy in Model.Participants)
+        {
+            <li>@guy.NavUser.FirstName @guy.NavUser.LastName</li>
+        }
+    </ol>
+</div>
